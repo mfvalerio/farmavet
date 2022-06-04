@@ -10,8 +10,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 
-
-
 @NgModule({
   declarations: [
     AppComponent
@@ -30,4 +28,4 @@ import {MatIconModule} from '@angular/material/icon';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

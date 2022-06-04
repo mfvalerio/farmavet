@@ -26,6 +26,12 @@ public class PetController {
         return petService.findAll();
     }
 
+    @GetMapping("/customers/{customerId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<PetDTO> findByCustomerId(@PathVariable Long customerId) {
+        return petService.findByCustomerId(customerId);
+    }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public PetDTO findById(@PathVariable Long id) {

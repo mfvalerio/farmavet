@@ -10,12 +10,17 @@ import { SharedModule } from '../shared/shared.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
+
+import { CustomerFormUpdateComponent } from './customer-form-update/customer-form-update.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     CustomersComponent,
-    CustomerFormComponent
+    CustomerFormComponent,
+    CustomerFormUpdateComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

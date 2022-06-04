@@ -1,11 +1,9 @@
-import { environment } from './../../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
-import { Customer } from './../model/customer';
+import { Customer, PetInfo } from './../model/customer';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { first } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
-import { MatSort } from '@angular/material/sort';
 
 
 
@@ -14,20 +12,33 @@ import { MatSort } from '@angular/material/sort';
 })
 export class CustomersService {
 
-  private readonly API = 'farmavet/customers';
+  private readonly API_CUSTOMERS = 'farmavet/customers';
+  private readonly API_PETS = 'farmavet/pets';
+
 
   constructor(private httpClient: HttpClient) { }
 
-  findAll() {
-    return this.httpClient.get<Customer[]>(this.API)
-    .pipe(
-      first(),
-      delay(1000),
-      tap(customers => console.log(customers))
-    );
+  findAllCustomers() {
+    return this.httpClient.get<Customer[]>(this.API_CUSTOMERS)
+      .pipe(
+        first(),
+        delay(1000),
+        tap(customer => {
+          console.log(customer)
+        })
+      );
   }
 
-  insert(record: Customer){
-    return this.httpClient.post<Customer>(this.API, record);
+  findAllCustomersPets() {
+    return this.httpClient.get<PetInfo[]>(this.API_PETS)
+      .pipe(
+        first(),
+        delay(1000),
+        tap(petInfo => console.log(petInfo))
+      );
+  }
+
+  insert(record: Customer) {
+    return this.httpClient.post<Customer>(this.API_CUSTOMERS, record);
   }
 }

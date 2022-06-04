@@ -22,6 +22,7 @@ public class CustomerEntity {
     private String name;
 
     @NotBlank(message = "Preenchimento do CPF é obrigatório")
+    @Column(unique=true)
     @CPF
     private String cpf;
 

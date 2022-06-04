@@ -9,4 +9,15 @@ export interface Customer {
   number: number;
   neighborhood: string;
   city: string;
+  pet: PetInfo[]
+}
+
+export interface PetInfo {
+  id: number
+  specie: string;
+  name: string;
+  birthDate: Date;
+  breed: string;
+  gender: string;
+  customerId: string
 }

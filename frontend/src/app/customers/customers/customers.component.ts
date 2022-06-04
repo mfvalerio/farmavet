@@ -1,7 +1,7 @@
 import { CustomersService } from './../services/customers.service';
 import { Customer } from './../model/customer';
 import { Component, OnInit } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,8 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CustomersComponent implements OnInit {
 
-  customers$: Observable<Customer[]>;
-  displayedColumns = ['id','name','cpf','telephone','telephoneForMessages','cep','streetName','number','neighborhood','city', 'actions'];
+  customers$ = new BehaviorSubject<Customer[]>([]);
+  displayedColumns = ['id', 'name', 'cpf', 'telephone', 'telephoneForMessages', 'cep', 'streetName', 'number', 'neighborhood', 'city', 'pet', 'actions'];
 
 
   constructor(
@@ -23,14 +23,30 @@ export class CustomersComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute
-    ) {
-    this.customers$ = this.customersService.findAll()
-    .pipe(
-      catchError(error => {
-        this.onError("Falha no carregamento.");
-        return of([])
+  ) {
+    this.customersService.findAllCustomersPets()
+      .pipe(
+        catchError(error => {
+          this.onError("Falha no carregamento.");
+          return of([])
+        })
+      );
+      
+    this.customersService.findAllCustomers()
+      .subscribe({
+        next: (customer) => {
+          this.customersService.findAllCustomersPets()
+          .subscribe({
+              next: (petInfo) => {
+                customer.forEach(c => c.pet = petInfo.filter(p => p.customerId === c.id));
+                const final = customer.sort((a: any, b: any) => a.name - b.name);
+                this.customers$.next(final);
+              },
+              error: (error) => this.onError("Falha no carregamento.")
+          })
+        },
+        error: (error) => this.onError("Falha no carregamento.")
       })
-    );
 
   }
 
@@ -44,8 +60,18 @@ export class CustomersComponent implements OnInit {
 
   }
 
-  onAdd(){
-    this.router.navigate(['new'], {relativeTo: this.route});
+  onAdd() {
+    this.router.navigate(['new'], { relativeTo: this.route });
+  }
+
+  onUpdate(customer: Customer) {
+    this.router.navigate(['update'], { relativeTo: this.route });
+    
+  }
+
+  openDoguinhoModal(customer: Customer) {
+    console.log("opa")
+    console.log(customer);
   }
 
 }

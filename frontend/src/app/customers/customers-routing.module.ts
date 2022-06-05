@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, children: [
-    { path: '', component: CustomersComponent },
+    { path: 'customers', component: CustomersComponent },
     { path: 'new', component: CustomerFormComponent },
     { path: 'update', component: CustomerFormUpdateComponent }
   ]}
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CustomersRoutingModule { }
+export class CustomersRoutingModule {}

@@ -34,25 +34,28 @@ export class CustomerFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(){
+  onSubmit() {
     this.service.insert(this.form.value)
-    .subscribe(result => this.onSucess(), error => this.onError());
+      .subscribe({
+        next: () => this.onSucess(),
+        error: () => this.onError()
+      });
 
   }
 
-  onCancel(){
+  onCancel() {
     this.location.back();
 
   }
 
-  private onSucess(){
-    this.snackBar.open('Salvo com sucesso!', '', {duration: 2000});
+  private onSucess() {
+    this.snackBar.open('Salvo com sucesso!', '', { duration: 2000 });
     this.onCancel();
 
   }
 
-  private onError(){
-    this.snackBar.open('Erro ao salvar', '', {duration: 2000});
+  private onError() {
+    this.snackBar.open('Erro ao salvar', '', { duration: 2000 });
   }
 }
 

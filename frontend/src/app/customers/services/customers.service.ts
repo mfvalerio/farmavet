@@ -14,6 +14,7 @@ export class CustomersService {
 
   private readonly API_CUSTOMERS = 'farmavet/customers';
   private readonly API_PETS = 'farmavet/pets';
+  private readonly API_APPOINTMENT = 'farmavet/consultations';
 
 
   constructor(private httpClient: HttpClient) { }
@@ -23,9 +24,7 @@ export class CustomersService {
       .pipe(
         first(),
         delay(1000),
-        tap(customer => {
-          console.log(customer)
-        })
+        tap(customer => console.log('Chegou customer', customer))
       );
   }
 
@@ -34,7 +33,27 @@ export class CustomersService {
       .pipe(
         first(),
         delay(1000),
-        tap(petInfo => console.log(petInfo))
+        tap(petInfo => console.log('Chegou pet', petInfo))
+      );
+  }
+
+  savePet(body: PetInfo) {
+    const request = Object.assign({}, body);
+    delete request.new;
+    return this.httpClient.post<PetInfo>(this.API_PETS, request)
+      .pipe(
+        first(),
+        delay(1000),
+        tap(petSaved => console.log('Salvou pet', petSaved))
+      );
+  }
+
+  makeAppointment(petInfo: PetInfo, date: Date) {
+    return this.httpClient.post<PetInfo>(this.API_APPOINTMENT, { petId: petInfo.id, customerId: petInfo.customerId, dateTime: date, diagnosis: null, description: 'Consulta agendada', id: null })
+      .pipe(
+        first(),
+        delay(1000),
+        tap(petSaved => console.log('Salvou consulta', petSaved))
       );
   }
 

@@ -12,8 +12,9 @@ import {MatIconModule} from '@angular/material/icon';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 
 import { CustomerFormUpdateComponent } from './customer-form-update/customer-form-update.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { HomeComponent } from './home/home.component';
     SharedModule,
     MatButtonModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule
   ]
 })
 

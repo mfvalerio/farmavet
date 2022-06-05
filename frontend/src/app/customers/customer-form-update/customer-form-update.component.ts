@@ -3,6 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
+import { ActivatedRoute, Route } from '@angular/router';
+import { Customer } from '../model/customer';
+import { MatDialog } from '@angular/material/dialog';
+import { DoguinhoDialogComponent } from 'src/app/shared/components/doguinho-dialog/doguinho-dialog.component';
 
 
 @Component({
@@ -12,12 +16,15 @@ import { Location } from '@angular/common';
 })
 export class CustomerFormUpdateComponent implements OnInit {
 
+  readonly state = window.history.state ? window.history.state : null
+
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
     private service: CustomersService,
     private snackBar: MatSnackBar,
-    private location: Location) {
+    private location: Location
+  ) {
     this.form = this.formBuilder.group({
       name: [null],
       cpf: [null],
@@ -32,27 +39,36 @@ export class CustomerFormUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.state && this.state.customer) {
+      this.form = this.formBuilder.group(this.state.customer);
+    }
   }
 
-  onSubmit(){
+  onSubmit() {
     this.service.insert(this.form.value)
-    .subscribe(result => this.onSucess(), error => this.onError());
+      .subscribe({
+        next: () => {
+          this.onSucess()
+        },
+        error: () => {
+          this.onError()
+        }
+      });
 
   }
 
-  onCancel(){
+  onCancel() {
     this.location.back();
-
   }
 
-  private onSucess(){
-    this.snackBar.open('Salvo com sucesso!', '', {duration: 2000});
+  private onSucess() {
+    this.snackBar.open('Salvo com sucesso!', '', { duration: 2000 });
     this.onCancel();
 
   }
 
-  private onError(){
-    this.snackBar.open('Erro ao salvar', '', {duration: 2000});
+  private onError() {
+    this.snackBar.open('Erro ao salvar', '', { duration: 2000 });
   }
 }
 

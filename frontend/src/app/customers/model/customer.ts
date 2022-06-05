@@ -9,15 +9,16 @@ export interface Customer {
   number: number;
   neighborhood: string;
   city: string;
-  pet: PetInfo[]
+  pets: PetInfo[]
 }
 
 export interface PetInfo {
-  id: number
+  id?: number;
   specie: string;
   name: string;
   birthDate: Date;
   breed: string;
   gender: string;
   customerId: string
+  new?: number
 }

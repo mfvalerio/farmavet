@@ -17,3 +17,33 @@ table {
   background-size: 40px;
   cursor: pointer;
 }
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: white !important;
+}
+
+::ng-deep .mat-card,
+.search {
+  padding: 0px 16px 0px 16px !important;
+}
+
+.search {
+  padding-top: 20px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
+}
+
+td.td-button,
+th.th-button {
+  width: 80px;
+}
+
+td.td-button button,
+th.th-button button{
+  margin-left: 30px;
+}

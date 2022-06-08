@@ -1,6 +1,7 @@
 package com.farmavet.clinica.services;
 
 import com.farmavet.clinica.dto.ConsultationDTO;
+import com.farmavet.clinica.dto.ConsultationResponse;
 import com.farmavet.clinica.entities.ConsultationEntity;
 import com.farmavet.clinica.mapper.ConsultationMapper;
 import com.farmavet.clinica.repository.ConsultationRepository;
@@ -20,9 +21,9 @@ public class ConsultationService {
     @Autowired
     private ConsultationMapper consultationMapper;
 
-    public List<ConsultationDTO> findAll(){
+    public List<ConsultationResponse> findAll(){
 
-        return consultationMapper.toDTOs(consultationRepository.findAll());
+        return consultationMapper.toResponses(consultationRepository.findByOrderByDateTimeDesc());
     }
 
     public ConsultationDTO findById(Long id){

@@ -1,6 +1,7 @@
 package com.farmavet.clinica.controllers;
 
 import com.farmavet.clinica.dto.ConsultationDTO;
+import com.farmavet.clinica.dto.ConsultationResponse;
 import com.farmavet.clinica.services.ConsultationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ public class ConsultationController {
     private ConsultationService consultationService;
 
     @GetMapping
-    public List<ConsultationDTO> findAll(){
+    public List<ConsultationResponse> findAll(){
 
         return consultationService.findAll();
     }
